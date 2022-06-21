@@ -32,7 +32,7 @@ if value != "":
                 i = i + 1
                 time.sleep(0.1)
             
-    # print("Datum: " + item["datum"] + ", Wert: " + item["werte"][value])
-    st.info("Anzahl der Statusveränderungen: " + str(i))
-    st.success("Ende des Durchlaufs")
-    st.balloons()
+        # print("Datum: " + item["datum"] + ", Wert: " + item["werte"][value])
+        st.info("Anzahl der Statusveränderungen: " + str(i))
+        st.success("Ende des Durchlaufs")
+        st.balloons()
