@@ -12,10 +12,11 @@ st.set_page_config(
 with open("style.css") as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
 
+# st.image("logo.png")
 st.title("Ablauf Simulationsfabrik")
 st.subheader('Stellt sich ändernde Sensorausprägungen dar')
 
-col1, col2 = st.columns([3,3])
+col1, col2 = st.columns([2,1])
 with col1:
     acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "50x", "100x"))
     button = st.button("Status der Maschine abfragen")
@@ -144,7 +145,7 @@ def showDifference(prev_item, curr_item):
 if button:
     j = 1
     with st.spinner("Maschine arbeitet"):
-        col1, col2, col3, col4 = st.columns([1,2,1,2])
+        col1, col2, col3, col4 = st.columns(4)
         with col1:
             col1.write("Bewegung Hochregal:")
             image_anlage1 = st.empty()
@@ -160,7 +161,7 @@ if button:
             image_anlage4 = st.empty()
             image_anlage4.image("vakuum_skaliert_1.png", width=300)
         
-        col5, col6, col7 = st.columns([1,1,1])
+        col5, col6, col7 = st.columns(3)
         with col5:
             datum = st.empty()
         with col6:

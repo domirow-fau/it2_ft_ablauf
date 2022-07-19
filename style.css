@@ -3,7 +3,7 @@
 h1, h3 {
     background-color: #314151;
     border-left: 10px solid #314151;
-    border-right: 400px solid #717e87;
+    border-right: 150px solid #717e87;
 }
 
 h3 {
@@ -12,7 +12,7 @@ h3 {
 
 html, body, [class*="css"] {
     font-family: 'Roboto', sans-serif; 
-    font-weight: 900;
+    /* font-weight: bold; */
     font-size: 20px;
     color: #ffffff;
 }
