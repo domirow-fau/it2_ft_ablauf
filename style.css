@@ -1,12 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap'); 
 
-h1, h3 {
+h1 {
     background-color: #314151;
     border-left: 50px solid #314151;
     border-right: 150px solid #717e87;
-}
-
-h3 {
     margin-bottom: 50px;
 }
 
