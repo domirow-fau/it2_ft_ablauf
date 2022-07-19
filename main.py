@@ -1,20 +1,28 @@
+__author__ = "Narin Hama, Dominik Rolof"
+__copyright__ = "Copyright 2022, Project Innovation Technology II"
+__credits__ = "Group 8"
+__version__ = "1.2"
+__email__ = "dominik.rolof@fau.de"
+__status__ = "Production"
+
 from urllib.request import urlopen
 import streamlit as st
 import json
 import time
 
+# page config
 st.set_page_config(
     page_title="Ablauf Simulationsfabrik",
     page_icon="📈",
     layout="wide"
 )
 
+# use css stylesheet
 with open("style.css") as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
 
-# st.image("logo.png")
+# default page layout
 st.title('Fischertechnik Simulationsfabrik & Festo (Historie und Datensammlung): Darstellung sich ändernder Sensorausprägungen und Visualisierung der Wegstrecken')
-# st.subheader('Stellt sich ändernde Sensorausprägungen dar')
 
 col1, col2 = st.columns([2,1])
 with col1:
@@ -26,17 +34,19 @@ with col2:
     image_pos = st.empty()
     image_pos.image("ampel_weiss.png", width=400)
 
+# introduce global variables and read json from url
 i = 0
 k = 0
-url = urlopen("https://it2wi1.if-lab.de/rest/ft_ablauf")
-data = json.loads(url.read())
-keys = data[i]["werte"]
 hVertBuf = 0
 hHorBuf = 0
 vVertBuf = 0
 vDrehBuf = 0
 vHorBuf = 0
+url = urlopen("https://it2wi1.if-lab.de/rest/ft_ablauf")
+data = json.loads(url.read())
+keys = data[i]["werte"]
 
+# function to compare two lines of json output
 def showDifference(prev_item, curr_item):
     global image_pos
     global hVertBuf
@@ -44,11 +54,12 @@ def showDifference(prev_item, curr_item):
     global vVertBuf
     global vDrehBuf
     global vHorBuf
-    
+
+# for each different value in json lines show the right image    
     for value in keys:
-        # print("Datum: " + data[i]["datum"] + ", Schalter: " + value + ", Wert1: " + prev_item[value] +  ", Wert2: " + curr_item[value] + "\n")
         if prev_item["werte"][value] != curr_item["werte"][value]:
-            # print("Datum: " + data[i]["datum"] + ", Schalter: " + value + ", Wert: " + curr_item[value] + "\n")
+
+            # section for changing movement
             if value == "H-vertikal":
                 if int(curr_item["werte"][value]) > hVertBuf:
                     image_anlage1.image("arrow_up.png", width=100)
@@ -79,6 +90,8 @@ def showDifference(prev_item, curr_item):
                 elif int(curr_item["werte"][value]) < vHorBuf:
                     image_anlage3.image("arrow_left.png", width=100)
                 vHorBuf = int(curr_item["werte"][value])
+
+            # section for changing sensors
             elif value == "B-Referenzschalter Drehkranz (Pos. Sauger)":
                 image_anlage2.image("B-Referenzschalter Drehkranz (Pos. Sauger).png", width=300)
             elif value == "B-Referenzschalter Drehkranz (Pos. Foerderband)":
@@ -119,16 +132,8 @@ def showDifference(prev_item, curr_item):
                 image_anlage2.image("B-Motor Sauger zum Ofen.png", width=300)
             elif value == "B-Motor Sauger zum Drehkranz":
                 image_anlage2.image("B-Motor Sauger zum Drehkranz.png", width=300)
-            else:
-                image_anlage2.image("automatisiertes_hochregallager_skaliert_1.png", width=300)
-                image_anlage4.image("vakuum_skaliert_1.png", width=300)
-            
 
-            datum.write("Datum:\n" + curr_item["datum"])
-            schalter.write("Schalter:\n" + value)
-            wert.write("Wert:\n" + curr_item["werte"][value])
-            
-            # st.write("Datum: " + curr_item["datum"] + ", Schalter: " + value + ", Wert: " + curr_item["werte"][value])
+            # section for changing machine status
             if value == "Ampel gruen" and curr_item["werte"][value].strip() == "true":
                 image_pos.image("ampel_gruen.png", width=400)
             elif value == "Ampel weiss" and curr_item["werte"][value].strip() == "true":
@@ -138,12 +143,17 @@ def showDifference(prev_item, curr_item):
             elif value == "Ampel orange" and curr_item["werte"][value].strip() == "true":
                 image_pos.image("ampel_orange.png", width=400)
 
-# print(data[0]["werte"].keys())
-# value = st.text_input("Bitte den auszulesenden Wert eingeben:")
-# value = "H-horizontal"
-# print(data[0]["werte"])
+            # section to print the exact values
+            datum.write("Datum:\n" + curr_item["datum"])
+            schalter.write("Schalter:\n" + value)
+            wert.write("Wert:\n" + curr_item["werte"][value])
+
+# start to work if user pushes the button
 if button:
+    # index for json lines
     j = 1
+
+    # default layout
     with st.spinner("Maschine arbeitet"):
         col1, col2, col3, col4 = st.columns(4)
         with col1:
@@ -169,6 +179,7 @@ if button:
         with col7:
             wert = st.empty()
 
+        # acceleration setup and walk through json lines
         for item in data:
             try:
                 prev_item = data[j-1]
@@ -185,28 +196,11 @@ if button:
                     time.sleep(1)
 
                 if prev_item["werte"] != curr_item["werte"]:
+                    # counter for number of changing statuses
                     i = i + 1
                     showDifference(prev_item, curr_item)
-                k =  k + i
             except:
                 break
 
-# if value != "":
-
-#     with st.spinner("Maschine arbeitet"):
-#         buffer = data[0]["werte"][value]
-#         for item in data:
-#             if buffer != item["werte"][value]:
-#                 # print("Datum: " + item["datum"] + ", Wert: " + item["werte"][value])
-#                 buffer = item["werte"][value]
-#                 col1, col2 = st.columns(2)
-#                 col1.write("Datum: " + item["datum"])
-#                 col2.write("Wert: " + item["werte"][value])
-#                 # st.write("Datum: " + col1 + ", Wert: " + item["werte"][value])
-#                 i = i + 1
-#                 time.sleep(0.1)
-            
-        # print("Datum: " + item["datum"] + ", Wert: " + item["werte"][value])
-        # st.info("Anzahl der Statusveränderungen: ")
+        # machine finished and application also ;)
         st.success("Ende des Durchlaufs. Anzahl Statusveränderungen: " + str(i))
-        # st.balloons()

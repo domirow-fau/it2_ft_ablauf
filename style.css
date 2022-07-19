@@ -8,8 +8,7 @@ h1 {
 }
 
 html, body, [class*="css"] {
-    font-family: 'Roboto', sans-serif; 
-    /* font-weight: bold; */
+    font-family: 'Roboto', sans-serif;
     font-size: 20px;
     color: #ffffff;
 }
