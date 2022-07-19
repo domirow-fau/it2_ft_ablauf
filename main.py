@@ -13,8 +13,8 @@ with open("style.css") as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
 
 # st.image("logo.png")
-st.title("Ablauf Simulationsfabrik")
-st.subheader('Stellt sich ändernde Sensorausprägungen dar')
+st.title('Fischertechnik Simulationsfabrik & Festo (Historie und Datensammlung): Darstellung sich ändernder Sensorausprägungen und Visualisierung der Wegstrecken')
+# st.subheader('Stellt sich ändernde Sensorausprägungen dar')
 
 col1, col2 = st.columns([2,1])
 with col1:
