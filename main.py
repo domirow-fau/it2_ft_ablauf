@@ -12,18 +12,18 @@ st.set_page_config(
 with open("style.css") as css:
     st.markdown( f'<style>{css.read()}</style>' , unsafe_allow_html= True)
 
-col1, col2 = st.columns([1,1])
+st.title("Ablauf Simulationsfabrik")
+st.subheader('Stellt sich ändernde Sensorausprägungen dar')
 
+col1, col2 = st.columns([3,3])
 with col1:
-    st.title('FT-Ablauf-Visualizer')
-    st.subheader('Stellt sich ändernde Sensorausprägungen dar')
     acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "50x", "100x"))
     button = st.button("Status der Maschine abfragen")
 
 with col2:
-    col2.subheader("Störungsanzeige:")
+    col2.write("Störungsanzeige:")
     image_pos = st.empty()
-    image_pos.image("ampel_weiss.png", width=100)
+    image_pos.image("ampel_weiss.png", width=400)
 
 i = 0
 k = 0
@@ -79,48 +79,48 @@ def showDifference(prev_item, curr_item):
                     image_anlage3.image("arrow_left.png", width=100)
                 vHorBuf = int(curr_item["werte"][value])
             elif value == "B-Referenzschalter Drehkranz (Pos. Sauger)":
-                image_anlage2.image("B-Referenzschalter Drehkranz (Pos. Sauger).png", width=400)
+                image_anlage2.image("B-Referenzschalter Drehkranz (Pos. Sauger).png", width=300)
             elif value == "B-Referenzschalter Drehkranz (Pos. Foerderband)":
-                image_anlage2.image("B-Referenzschalter Drehkranz (Pos. Foerderband).png", width=400)
+                image_anlage2.image("B-Referenzschalter Drehkranz (Pos. Foerderband).png", width=300)
             elif value == "B-Lichtschranke Ende Foerderband":
-                image_anlage2.image("B-Lichtschranke Ende Foerderband.png", width=400)
+                image_anlage2.image("B-Lichtschranke Ende Foerderband.png", width=300)
             elif value == "B-Referenzschalter Sauger (Pos. Brennofen)":
-                image_anlage2.image("-Referenzschalter Sauger (Pos. Brennofen).png", width=400)
+                image_anlage2.image("-Referenzschalter Sauger (Pos. Brennofen).png", width=300)
             elif value == "B-Lichtschranke Brennofen":
-                image_anlage2.image("B-Lichtschranke Brennofen.png", width=400)
+                image_anlage2.image("B-Lichtschranke Brennofen.png", width=300)
             elif value == "S-Lichtschranke Eingang":
-                image_anlage2.image("S-Lichtschranke Eingang.png", width=400)
+                image_anlage2.image("S-Lichtschranke Eingang.png", width=300)
             elif value == "S-Lichtschranke nach Farbsensor":
-                image_anlage2.image("S-Lichtschranke nach Farbsensor.png", width=400)
+                image_anlage2.image("S-Lichtschranke nach Farbsensor.png", width=300)
             elif value == "S-Lichtschranke weiss":
-                image_anlage2.image("S-Lichtschranke weiss.png", width=400)
+                image_anlage2.image("S-Lichtschranke weiss.png", width=300)
             elif value == "S-Lichtschranke rot":
-                image_anlage2.image("S-Lichtschranke rot.png", width=400)
+                image_anlage2.image("S-Lichtschranke rot.png", width=300)
             elif value == "S-Lichtschranke blau":
-                image_anlage2.image("S-Lichtschranke blau.png", width=400)
+                image_anlage2.image("S-Lichtschranke blau.png", width=300)
             elif value == "Lichtschranke innen":
-                image_anlage2.image("Lichtschranke innen.png", width=400)
+                image_anlage2.image("Lichtschranke innen.png", width=300)
             elif value == "Referenztaster vertikal":
-                image_anlage2.image("Referenztaster vertikal.png", width=400)
+                image_anlage2.image("Referenztaster vertikal.png", width=300)
             elif value == "Referenztaster Ausleger vorne":
-                image_anlage2.image("Referenztaster Ausleger vorne.png", width=400)
+                image_anlage2.image("Referenztaster Ausleger vorne.png", width=300)
             elif value == "V-Referenzschalter vertikal":
-                image_anlage4.image("V-Referenzschalter vertikal.png", width=400)
+                image_anlage4.image("V-Referenzschalter vertikal.png", width=300)
             elif value == "V-Referenzschalter horizontal":
-                image_anlage4.image("V-Referenzschalter horizontal.png", width=400)
+                image_anlage4.image("V-Referenzschalter horizontal.png", width=300)
             elif value == "V-Referenzschalter drehen":
-                image_anlage4.image("V-Referenzschalter drehen.png", width=400)
+                image_anlage4.image("V-Referenzschalter drehen.png", width=300)
             elif value == "B-Motor Foerderband vorwaerts":
-                image_anlage2.image("B-Motor Foerderband vorwaerts.png", width=400)
+                image_anlage2.image("B-Motor Foerderband vorwaerts.png", width=300)
             elif value == "B-Motor Saege":
-                image_anlage2.image("B-Motor Saege.png", width=400)
+                image_anlage2.image("B-Motor Saege.png", width=300)
             elif value == "B-Motor Sauger zum Ofen":
-                image_anlage2.image("B-Motor Sauger zum Ofen.png", width=400)
+                image_anlage2.image("B-Motor Sauger zum Ofen.png", width=300)
             elif value == "B-Motor Sauger zum Drehkranz":
-                image_anlage2.image("B-Motor Sauger zum Drehkranz.png", width=400)
+                image_anlage2.image("B-Motor Sauger zum Drehkranz.png", width=300)
             else:
-                image_anlage2.image("automatisiertes_hochregallager_skaliert_1.png", width=400)
-                image_anlage4.image("vakuum_skaliert_1.png", width=400)
+                image_anlage2.image("automatisiertes_hochregallager_skaliert_1.png", width=300)
+                image_anlage4.image("vakuum_skaliert_1.png", width=300)
             
 
             datum.write("Datum:\n" + curr_item["datum"])
@@ -129,13 +129,13 @@ def showDifference(prev_item, curr_item):
             
             # st.write("Datum: " + curr_item["datum"] + ", Schalter: " + value + ", Wert: " + curr_item["werte"][value])
             if value == "Ampel gruen" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_gruen.png", width=100)
+                image_pos.image("ampel_gruen.png", width=400)
             elif value == "Ampel weiss" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_weiss.png", width=100)
+                image_pos.image("ampel_weiss.png", width=400)
             elif value == "Ampel rot" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_rot.png", width=100)
+                image_pos.image("ampel_rot.png", width=400)
             elif value == "Ampel orange" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_orange.png", width=100)
+                image_pos.image("ampel_orange.png", width=400)
 
 # print(data[0]["werte"].keys())
 # value = st.text_input("Bitte den auszulesenden Wert eingeben:")
@@ -144,23 +144,23 @@ def showDifference(prev_item, curr_item):
 if button:
     j = 1
     with st.spinner("Maschine arbeitet"):
-        col1, col2, col3, col4 = st.columns([2,5,2,2])
+        col1, col2, col3, col4 = st.columns([1,2,1,2])
         with col1:
             col1.write("Bewegung Hochregal:")
             image_anlage1 = st.empty()
             image_anlage1.image("arrow_up.png", width=100)
         with col2:
             image_anlage2 = st.empty()
-            image_anlage2.image("automatisiertes_hochregallager_skaliert_1.png", width=400)
+            image_anlage2.image("automatisiertes_hochregallager_skaliert_1.png", width=300)
         with col3:
             col3.write("Bewegung Sauggreifer:")
             image_anlage3 = st.empty()
             image_anlage3.image("arrow_up.png", width=100)
         with col4:
             image_anlage4 = st.empty()
-            image_anlage4.image("vakuum_skaliert_1.png", width=400)
+            image_anlage4.image("vakuum_skaliert_1.png", width=300)
         
-        col5, col6, col7 = st.columns([4,4,2])
+        col5, col6, col7 = st.columns([1,1,1])
         with col5:
             datum = st.empty()
         with col6:
@@ -170,8 +170,6 @@ if button:
 
         for item in data:
             try:
-                
-                print("hallo2")
                 prev_item = data[j-1]
                 curr_item = data[j]
                 j = j + 1
@@ -188,11 +186,8 @@ if button:
                 if prev_item["werte"] != curr_item["werte"]:
                     i = i + 1
                     showDifference(prev_item, curr_item)
-                # print("Datum: " + item["datum"] + ", Wert: " + item["werte"][value])
-                # st.write("Datum: " + col1 + ", Wert: " + item["werte"][value])
                 k =  k + i
             except:
-                print("hallo")
                 break
 
 # if value != "":
