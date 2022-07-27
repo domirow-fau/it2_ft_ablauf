@@ -10,6 +10,8 @@ import streamlit as st
 import json
 import time
 
+# INIT ####################################################################################################################################
+
 # page config
 st.set_page_config(
     page_title="Ablauf Simulationsfabrik",
@@ -26,7 +28,7 @@ st.title('Fischertechnik Simulationsfabrik & Festo (Historie und Datensammlung):
 
 col1, col2 = st.columns([2,1])
 with col1:
-    acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "50x", "100x"))
+    acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "100x"))
     button = st.button("Status der Maschine abfragen")
 
 with col2:
@@ -45,6 +47,22 @@ vHorBuf = 0
 url = urlopen("https://it2wi1.if-lab.de/rest/ft_ablauf")
 data = json.loads(url.read())
 keys = data[i]["werte"]
+
+# FUNCTIONS ####################################################################################################################################
+
+# function to print the exact values
+def printValues(curr_item, value):
+    global i
+
+    datum.write("Datum:\n" + curr_item["datum"])
+    schalter.write("Schalter:\n" + value)
+    wert.write("Wert:\n" + curr_item["werte"][value])
+
+    # counter for number of changing sensor statuses
+    i = i + 1
+
+
+
 
 # function to compare two lines of json output
 def showDifference(prev_item, curr_item):
@@ -94,44 +112,64 @@ def showDifference(prev_item, curr_item):
             # section for changing sensors
             elif value == "B-Referenzschalter Drehkranz (Pos. Sauger)":
                 image_anlage2.image("B-Referenzschalter Drehkranz (Pos. Sauger).png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Referenzschalter Drehkranz (Pos. Foerderband)":
                 image_anlage2.image("B-Referenzschalter Drehkranz (Pos. Foerderband).png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Lichtschranke Ende Foerderband":
                 image_anlage2.image("B-Lichtschranke Ende Foerderband.png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Referenzschalter Sauger (Pos. Brennofen)":
                 image_anlage2.image("-Referenzschalter Sauger (Pos. Brennofen).png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Lichtschranke Brennofen":
                 image_anlage2.image("B-Lichtschranke Brennofen.png", width=300)
+                printValues(curr_item, value)
             elif value == "S-Lichtschranke Eingang":
                 image_anlage2.image("S-Lichtschranke Eingang.png", width=300)
+                printValues(curr_item, value)
             elif value == "S-Lichtschranke nach Farbsensor":
                 image_anlage2.image("S-Lichtschranke nach Farbsensor.png", width=300)
+                printValues(curr_item, value)
             elif value == "S-Lichtschranke weiss":
                 image_anlage2.image("S-Lichtschranke weiss.png", width=300)
+                printValues(curr_item, value)
             elif value == "S-Lichtschranke rot":
                 image_anlage2.image("S-Lichtschranke rot.png", width=300)
+                printValues(curr_item, value)
             elif value == "S-Lichtschranke blau":
                 image_anlage2.image("S-Lichtschranke blau.png", width=300)
+                printValues(curr_item, value)
             elif value == "Lichtschranke innen":
                 image_anlage2.image("Lichtschranke innen.png", width=300)
+                printValues(curr_item, value)
             elif value == "Referenztaster vertikal":
                 image_anlage2.image("Referenztaster vertikal.png", width=300)
+                printValues(curr_item, value)
             elif value == "Referenztaster Ausleger vorne":
                 image_anlage2.image("Referenztaster Ausleger vorne.png", width=300)
+                printValues(curr_item, value)
             elif value == "V-Referenzschalter vertikal":
                 image_anlage4.image("V-Referenzschalter vertikal.png", width=300)
+                printValues(curr_item, value)
             elif value == "V-Referenzschalter horizontal":
                 image_anlage4.image("V-Referenzschalter horizontal.png", width=300)
+                printValues(curr_item, value)
             elif value == "V-Referenzschalter drehen":
                 image_anlage4.image("V-Referenzschalter drehen.png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Motor Foerderband vorwaerts":
                 image_anlage2.image("B-Motor Foerderband vorwaerts.png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Motor Saege":
                 image_anlage2.image("B-Motor Saege.png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Motor Sauger zum Ofen":
                 image_anlage2.image("B-Motor Sauger zum Ofen.png", width=300)
+                printValues(curr_item, value)
             elif value == "B-Motor Sauger zum Drehkranz":
                 image_anlage2.image("B-Motor Sauger zum Drehkranz.png", width=300)
+                printValues(curr_item, value)
 
             # section for changing machine status
             if value == "Ampel gruen" and curr_item["werte"][value].strip() == "true":
@@ -143,10 +181,8 @@ def showDifference(prev_item, curr_item):
             elif value == "Ampel orange" and curr_item["werte"][value].strip() == "true":
                 image_pos.image("ampel_orange.png", width=400)
 
-            # section to print the exact values
-            datum.write("Datum:\n" + curr_item["datum"])
-            schalter.write("Schalter:\n" + value)
-            wert.write("Wert:\n" + curr_item["werte"][value])
+
+# MAIN ####################################################################################################################################
 
 # start to work if user pushes the button
 if button:
@@ -155,7 +191,7 @@ if button:
 
     # default layout
     with st.spinner("Maschine arbeitet"):
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4 = st.columns([2,3,2,3])
         with col1:
             col1.write("Bewegung Hochregal:")
             image_anlage1 = st.empty()
@@ -188,19 +224,18 @@ if button:
 
                 if acceleration == "10x":
                     time.sleep(0.1)
-                elif acceleration == "50x":
-                    time.sleep(0.05)
                 elif acceleration == "100x":
                     time.sleep(0.01)
                 else:
                     time.sleep(1)
 
                 if prev_item["werte"] != curr_item["werte"]:
-                    # counter for number of changing statuses
-                    i = i + 1
                     showDifference(prev_item, curr_item)
+
             except:
                 break
 
         # machine finished and application also ;)
         st.success("Ende des Durchlaufs. Anzahl Statusveränderungen: " + str(i))
+
+# END ####################################################################################################################################        
