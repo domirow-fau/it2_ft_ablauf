@@ -31,8 +31,6 @@ with col1:
     acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "100x"), horizontal=True)
     st.write("\n")
     st.write("\n")
-    st.write("\n")
-    st.write("\n")
     button = st.button("Status der Maschine abfragen")
 
 with col2:
