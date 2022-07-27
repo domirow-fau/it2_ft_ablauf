@@ -28,13 +28,17 @@ st.title('Fischertechnik Simulationsfabrik & Festo (Historie und Datensammlung):
 
 col1, col2 = st.columns([4,3])
 with col1:
-    acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "100x"))
+    acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "100x"), horizontal=True)
+    st.write("\n")
+    st.write("\n")
+    st.write("\n")
+    st.write("\n")
     button = st.button("Status der Maschine abfragen")
 
 with col2:
     col2.write("Störungsanzeige:")
     image_pos = st.empty()
-    image_pos.image("ampel_weiss.png", width=400)
+    image_pos.image("ampel_weiss.png", width=300)
 
 # introduce global variables and read json from url
 i = 0
@@ -173,13 +177,13 @@ def showDifference(prev_item, curr_item):
 
             # section for changing machine status
             if value == "Ampel gruen" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_gruen.png", width=400)
+                image_pos.image("ampel_gruen.png", width=300)
             elif value == "Ampel weiss" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_weiss.png", width=400)
+                image_pos.image("ampel_weiss.png", width=300)
             elif value == "Ampel rot" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_rot.png", width=400)
+                image_pos.image("ampel_rot.png", width=300)
             elif value == "Ampel orange" and curr_item["werte"][value].strip() == "true":
-                image_pos.image("ampel_orange.png", width=400)
+                image_pos.image("ampel_orange.png", width=300)
 
 
 # MAIN ####################################################################################################################################
