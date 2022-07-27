@@ -26,7 +26,7 @@ with open("style.css") as css:
 # default page layout
 st.title('Fischertechnik Simulationsfabrik & Festo (Historie und Datensammlung): Darstellung sich ändernder Sensorausprägungen und Visualisierung der Wegstrecken')
 
-col1, col2 = st.columns([2,1])
+col1, col2 = st.columns([4,3])
 with col1:
     acceleration = st.radio("Bitte gewünschte Beschleunigung wählen:", ("Echtzeit", "10x", "100x"))
     button = st.button("Status der Maschine abfragen")
