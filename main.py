@@ -197,14 +197,14 @@ if button:
         with col1:
             col1.write("Bewegung Hochregal:")
             image_anlage1 = st.empty()
-            image_anlage1.image("arrow_up.png", width=100)
+            image_anlage1.write("Keine Bewegung")
         with col2:
             image_anlage2 = st.empty()
             image_anlage2.image("automatisiertes_hochregallager_skaliert_1.png", width=225)
         with col3:
             col3.write("Bewegung Sauggreifer:")
             image_anlage3 = st.empty()
-            image_anlage3.image("arrow_up.png", width=100)
+            image_anlage3.write("Keine Bewegung")
         with col4:
             image_anlage4 = st.empty()
             image_anlage4.image("vakuum_skaliert_1.png", width=225)
@@ -231,6 +231,8 @@ if button:
                 else:
                     time.sleep(1)
 
+                image_anlage1.write("Keine Bewegung")
+                image_anlage3.write("Keine Bewegung")
                 if prev_item["werte"] != curr_item["werte"]:
                     showDifference(prev_item, curr_item)
 
